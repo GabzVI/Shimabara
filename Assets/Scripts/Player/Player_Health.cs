@@ -65,34 +65,6 @@ public class Player_Health : MonoBehaviour {
     }
   }
 
-    public void OnTriggerEnter(Collider other)
-    {
-        //if (other.gameObject.name == "Ramen")//checks if the player collides with an object with the stated name
-        //{
-        //    Destroy(other.gameObject);//destroys the other object
-        //    Debug.Log("We hit ramen");
-        //    currentHealth += 50;//increases player's current health by 50
-        //    if (currentHealth > initialHealth)
-        //    {
-        //        currentHealth = initialHealth;//stops the players current health from exceeding their max health
-        //    }
-        //    healthSlider.value = currentHealth;//moves the health slider UI bar to show how much health is restored
-
-        //}
-
-        if (other.gameObject.name == "Bentobox")
-        {
-            Destroy(other.gameObject);
-            Debug.Log("We hit the Bento box");
-            currentHealth += 25;
-            if (currentHealth > initialHealth)
-            {
-                currentHealth = initialHealth;
-            }
-            healthSlider.value = currentHealth;
-        }
-    }
-
     public void Increase_health(float HP_Up)
     {
         initialHealth += HP_Up;//Adds the value to the max health when the player levels up

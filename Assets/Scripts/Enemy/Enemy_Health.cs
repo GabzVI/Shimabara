@@ -13,7 +13,7 @@ public class Enemy_Health : MonoBehaviour {
     public bool isDead;
     
 
-    float timer = 3.9f;
+    float timer = 2;
     public int EXPToGain;
 
     public GameObject ramen;
@@ -65,6 +65,7 @@ public class Enemy_Health : MonoBehaviour {
         Destroyenemy();
         Destroy(this.gameObject);
         Player_stats.AddEXP(EXPToGain);
+        enemy.GetComponent<AI>().enabled = false;
       }
     }
 
