@@ -3,43 +3,46 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 
-public class Enemy_Health : MonoBehaviour {
+public class Enemy_Health : MonoBehaviour
+{
 
-    public float fullHealth = 100;
-    public float currentHealth;
-    public Slider EnemyHealth;
-    public GameObject enemy;
-    Animator anim;
-    public bool isDead;
-    
+  public float fullHealth = 100;
+  public float currentHealth;
+  public Slider EnemyHealth;
+  public GameObject enemy;
+  Animator anim;
+  public bool isDead;
+  public GameObject manager;
 
-    float timer = 2;
-    public int EXPToGain;
+  float timer = 2f;
+  public int EXPToGain;
 
-    public GameObject ramen;
-    public GameObject bentoBox;
-    private Player_Level Player_stats;
+  public GameObject ramen;
+  public GameObject bentoBox;
+  private Player_Level Player_stats;
 
-    
-    int r_droprate;
-    // Use this for initialization
-    void Start ()
+
+  int r_droprate;
+  // Use this for initialization
+  void Start()
   {
-        currentHealth = fullHealth;
-        enemy = this.gameObject;
-        ramen = GameObject.FindGameObjectWithTag("Ramen");
-        bentoBox = GameObject.FindGameObjectWithTag("Bentobox");
-        anim = enemy.GetComponent<Animator>();
-        anim.SetBool("IsDead", false);
-        isDead = false;
+    currentHealth = fullHealth;
+    enemy = this.gameObject;
+    ramen = GameObject.FindGameObjectWithTag("Ramen");
+    bentoBox = GameObject.FindGameObjectWithTag("Bentobox");
+    manager = GameObject.FindGameObjectWithTag("Manager");
+    anim = enemy.GetComponent<Animator>();
+    anim.SetBool("IsDead", false);
+    isDead = false;
 
-        
-        Player_stats = FindObjectOfType<Player_Level>();
-    }
-	
-	// Update is called once per frame
-	void Update ()
+
+    Player_stats = FindObjectOfType<Player_Level>();
+  }
+
+  // Update is called once per frame
+  void Update()
   {
+
     if (currentHealth <= 0)
     {
       if (timer >= 0)
@@ -63,9 +66,8 @@ public class Enemy_Health : MonoBehaviour {
         }
 
         Destroyenemy();
-        Destroy(this.gameObject);
         Player_stats.AddEXP(EXPToGain);
-        enemy.GetComponent<AI>().enabled = false;
+        Destroy(this.gameObject);
       }
     }
 
@@ -73,16 +75,16 @@ public class Enemy_Health : MonoBehaviour {
     {
       EnemyHealth.transform.position = enemy.transform.position + enemy.transform.up + new Vector3(0f, 0.2f, 0f);
     }
-  
+
   }
 
- public void AddDamage(float damage)
+  public void AddDamage(float damage)
   {
 
     currentHealth -= damage;
     EnemyHealth.value = currentHealth;
-   
-    if(currentHealth <= 0)
+
+    if (currentHealth <= 0)
     {
       anim.SetBool("IsDead", true);
       Destroyenemy();

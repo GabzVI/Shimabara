@@ -8,18 +8,23 @@ public class EnemyManager : MonoBehaviour {
   public GameObject ramen;
   public float spawnTimer;
   public Transform[] spawnPoints;
+  public float cd = 2;
+
+
+  public int bosscount = 0;
+  public int minibosscount = 0;
+
 
 	// Use this for initialization
 	void Start ()
   {
-    InvokeRepeating("Spawn", spawnTimer, spawnTimer);
+    //InvokeRepeating("Spawn", spawnTimer, spawnTimer);
     player = GameObject.FindGameObjectWithTag("Player");
-    
   }
 	
 	// Update is called once per frame
 	void Update () {
-		
+    Spawn();
 	}
 
   void Spawn()
@@ -37,8 +42,29 @@ public class EnemyManager : MonoBehaviour {
     int spawnPointIndex = Random.Range(0, spawnPoints.Length);
 
     // Create an instance of the enemy prefab at the randomly selected spawn point's position and rotation.
-    Instantiate(enemy, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
-    
+
+
+  if (cd <= 0)
+    {
+      if (minibosscount< 4)
+      {
+        Instantiate(enemy, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
+  minibosscount++;
+      }
+      if (bosscount< 1)
+      {
+        Instantiate(enemy, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
+bosscount++;
+      }
+
+      cd = 10;
+    }
+    else
+    {
+      cd -= Time.deltaTime;
+
+    }
+
   }
 }
 

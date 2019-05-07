@@ -19,6 +19,7 @@ public class Boss_Health : MonoBehaviour
 
   public GameObject ramen;
   public GameObject bentoBox;
+  public GameObject manager;
   private Player_Level Player_stats;
 
 
@@ -30,6 +31,7 @@ public class Boss_Health : MonoBehaviour
     boss = this.gameObject;
     ramen = GameObject.FindGameObjectWithTag("Ramen");
     bentoBox = GameObject.FindGameObjectWithTag("Bentobox");
+    manager = GameObject.FindGameObjectWithTag("Manager");
     anim = boss.GetComponent<Animator>();
     anim.SetBool("IsDead", false);
     isDead = false;
@@ -46,7 +48,7 @@ public class Boss_Health : MonoBehaviour
     {
       if (timer >= 0)
       {
-        timer -= Time.deltaTime;
+        timer -= Time.deltaTime * 1;
         boss.GetComponent<AIforBoss>().enabled = false;//this stops the enemy death animation from constantly running and keeps the already defeated enemies from following the player
 
       }
@@ -54,8 +56,10 @@ public class Boss_Health : MonoBehaviour
       {
         // Add your death things here...
         Debug.Log("runs");
-        r_droprate = Random.Range(1, 100);
-        if (r_droprate <= 25)
+        r_droprate = Random.Range(0, 4);
+        Debug.Log("droprate = " + r_droprate);
+
+        if (r_droprate == 0)
         {
           Instantiate(ramen, transform.position + new Vector3(0.0f, 0.4f, 0.0f), transform.rotation);
         }
@@ -63,10 +67,10 @@ public class Boss_Health : MonoBehaviour
         {
           Instantiate(bentoBox, transform.position + new Vector3(0.0f, 0.4f, 0.0f), transform.rotation);
         }
-
+        
         Destroyenemy();
-        Destroy(this.gameObject);
         Player_stats.AddEXP(EXPToGain);
+        Destroy(this.gameObject);
       }
     }
    

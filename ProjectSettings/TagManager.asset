@@ -12,6 +12,7 @@ TagManager:
   - Bentobox
   - Boss
   - Bossbat
+  - Manager
   layers:
   - Default
   - TransparentFX

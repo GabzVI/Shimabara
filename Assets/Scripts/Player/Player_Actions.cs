@@ -45,7 +45,7 @@ public class Player_Actions : MonoBehaviour {
     {
       if (enemy != null)
       {
-        enemy.GetComponentInParent<Enemy_Health>().AddDamage(15 + Strength);
+        enemy.GetComponentInParent<Enemy_Health>().AddDamage(50 + Strength);
         enemy = null;
       }
  
